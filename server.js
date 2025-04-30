@@ -51,12 +51,14 @@ app.post("/feed", (req, res) => {
     return res.status(401).json({ error: "Invalid name or password" });
   }
 
-  const now = new Date();
-  const time = now.toLocaleTimeString([], {
+  const nowUTC = new Date();
+  const nowIST = new Date(nowUTC.getTime() + 3 * 60 * 60 * 1000); // add 3 hours because the server i used is in europe UTC+3
+
+  const time = nowIST.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
   });
-  const date = now.toISOString().split("T")[0];
+  const date = nowIST.toISOString().split("T")[0];
 
   db.run(
     "INSERT INTO feedings (name, time, date) VALUES (?, ?, ?)",
