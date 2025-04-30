@@ -12,8 +12,14 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+// Set correct DB path depending on environment
+const dbPath =
+  process.env.NODE_ENV === "production"
+    ? "/tmp/feed_log.db"
+    : "./db/feed_log.db";
+
 // Create or open the SQLite DB
-const db = new sqlite3.Database("./db/feed_log.db", (err) => {
+const db = new sqlite3.Database(dbPath, (err) => {
   if (err) console.error("DB connection error:", err);
   else console.log("Connected to SQLite database.");
 });
