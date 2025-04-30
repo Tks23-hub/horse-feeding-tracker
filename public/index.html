@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Horse Feeding Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>🐴 Horse Feeding Tracker</h1>
+
+      <form id="feedForm">
+        <label for="name">Who fed the horse?</label>
+        <select id="name" required>
+          <option value="" disabled selected>Select your name</option>
+          <option value="Hosen">Hosen</option>
+          <option value="Amro">Amro</option>
+          <option value="Mohamed">Mohamed</option>
+          <option value="Abed">Abed</option>
+          <option value="Samar">Samar</option>
+        </select>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" required />
+
+        <button type="submit">I Fed the Horse</button>
+      </form>
+
+      <div id="message"></div>
+
+      <hr />
+
+      <h2>🐎 Feedings Today</h2>
+      <ul id="todayFeedings"></ul>
+
+      <a href="history.html">View Full History</a>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
