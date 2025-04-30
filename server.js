@@ -1,8 +1,11 @@
 const express = require("express");
 const path = require("path");
 const sqlite3 = require("sqlite3").verbose();
+const dotenv = require("dotenv");
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+dotenv.config(); // Load .env variables
 
 // Serve static files
 app.use(express.static("public"));
@@ -23,12 +26,16 @@ db.run(`CREATE TABLE IF NOT EXISTS feedings (
   date TEXT
 )`);
 
-// In-memory hardcoded users
-const users = {
-  Marcus: "1234",
-  Jack: "5678",
-  Layla: "abcd",
-};
+// Load users from .env
+const userEnv = process.env.USERS;
+const users = {};
+
+if (userEnv) {
+  userEnv.split(",").forEach((entry) => {
+    const [name, pass] = entry.split(":");
+    users[name] = pass;
+  });
+}
 
 // API: Log a feeding
 app.post("/feed", (req, res) => {

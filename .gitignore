@@ -1,2 +1,3 @@
 node_modules/
 db/feed_log.db
+.env
