@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feeding History</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>📜 Feeding History</h1>
+      <ul id="historyList"></ul>
+      <a href="index.html">⬅️ Back to Main Page</a>
+    </div>
+
+    <script>
+      fetch("/history")
+        .then((res) => res.json())
+        .then((data) => {
+          const list = document.getElementById("historyList");
+          if (data.length === 0) {
+            list.innerHTML = "<li>No records found.</li>";
+            return;
+          }
+
+          data.forEach((entry) => {
+            const li = document.createElement("li");
+            li.textContent = `${entry.name} fed the horse at ${entry.time} on ${entry.date}`;
+            list.appendChild(li);
+          });
+        })
+        .catch((err) => {
+          console.error("Error loading history:", err);
+        });
+    </script>
+  </body>
+</html>
